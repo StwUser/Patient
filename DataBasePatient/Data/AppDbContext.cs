@@ -23,6 +23,7 @@ namespace DataBasePatient.Data
         public DbSet<Patient> Patients { get; set; } = null!;
         public DbSet<Gender> Genders { get; set; } = null!;
         public DbSet<Given> Givens { get; set; } = null!;
+        public DbSet<Active> Actives { get; set; } = null!;
 
         private void SetUpConnectionString()
         {

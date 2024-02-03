@@ -30,12 +30,15 @@ namespace DataBasePatient.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ActiveName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Value")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Active");
+                    b.ToTable("Actives");
                 });
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Gender", b =>
@@ -91,7 +94,7 @@ namespace DataBasePatient.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
+                    b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Use")
@@ -123,9 +126,7 @@ namespace DataBasePatient.Migrations
 
                     b.HasOne("DataBasePatient.Data.Models.Gender", "Gender")
                         .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenderId");
 
                     b.Navigation("Active");
 

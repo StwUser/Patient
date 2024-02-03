@@ -7,10 +7,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataBasePatient.Migrations
 {
-    public partial class AddPatientGenderGiven : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Actives",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<bool>(type: "bit", nullable: false),
+                    ActiveName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Actives", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Genders",
                 columns: table => new
@@ -31,17 +45,13 @@ namespace DataBasePatient.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Use = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Family = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GenderId = table.Column<int>(type: "int", nullable: false)
+                    GenderId = table.Column<int>(type: "int", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ActiveId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Patients_Genders_GenderId",
-                        column: x => x.GenderId,
-                        principalTable: "Genders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,10 +78,14 @@ namespace DataBasePatient.Migrations
                 table: "Givens",
                 column: "PatientId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Patients_GenderId",
-                table: "Patients",
-                column: "GenderId");
+            migrationBuilder.InsertData(
+               table: "Actives",
+               columns: new[] { nameof(Active.Id), nameof(Active.Value), nameof(Active.ActiveName) },
+               values: new object[,]
+               {
+                                { (int)ActiveId.True, true, nameof(ActiveId.True)},
+                                { (int)ActiveId.False, false, nameof(ActiveId.False)}
+               });
 
             migrationBuilder.InsertData(
                            table: "Genders",
@@ -88,13 +102,16 @@ namespace DataBasePatient.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Actives");
+
+            migrationBuilder.DropTable(
+                name: "Genders");
+
+            migrationBuilder.DropTable(
                 name: "Givens");
 
             migrationBuilder.DropTable(
                 name: "Patients");
-
-            migrationBuilder.DropTable(
-                name: "Genders");
         }
     }
 }

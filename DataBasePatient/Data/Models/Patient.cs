@@ -11,12 +11,12 @@ namespace DataBasePatient.Data.Models
         public string? Use { get; set; }
         [Required]
         public string? Family { get; set; }
-        public List<string> Given { get; } = new List<string>();
+        public ICollection<string> Given { get; } = new List<string>();
+        public int? GenderId { get; set; }
         public Gender? Gender { get; set; }
-        public int GenderId { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
+        public int? ActiveId { get; set; }
         public Active? Active { get; set; }
-
     }
 }

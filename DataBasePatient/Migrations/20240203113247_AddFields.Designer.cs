@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBasePatient.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240203092033_AddPatientGenderGiven")]
-    partial class AddPatientGenderGiven
+    [Migration("20240203113247_AddFields")]
+    partial class AddFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,25 @@ namespace DataBasePatient.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("DataBasePatient.Data.Models.Active", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ActiveName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Value")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Actives");
+                });
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Gender", b =>
                 {
@@ -67,17 +86,25 @@ namespace DataBasePatient.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("ActiveId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Family")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
+                    b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Use")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActiveId");
 
                     b.HasIndex("GenderId");
 
@@ -95,11 +122,15 @@ namespace DataBasePatient.Migrations
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Patient", b =>
                 {
+                    b.HasOne("DataBasePatient.Data.Models.Active", "Active")
+                        .WithMany()
+                        .HasForeignKey("ActiveId");
+
                     b.HasOne("DataBasePatient.Data.Models.Gender", "Gender")
                         .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenderId");
+
+                    b.Navigation("Active");
 
                     b.Navigation("Gender");
                 });

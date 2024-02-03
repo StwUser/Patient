@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBasePatient.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240203095111_AddActive")]
-    partial class AddActive
+    [Migration("20240203112610_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,12 +32,15 @@ namespace DataBasePatient.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ActiveName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Value")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Active");
+                    b.ToTable("Actives");
                 });
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Gender", b =>
@@ -93,17 +96,13 @@ namespace DataBasePatient.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
+                    b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Use")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActiveId");
-
-                    b.HasIndex("GenderId");
 
                     b.ToTable("Patients");
                 });
@@ -115,23 +114,6 @@ namespace DataBasePatient.Migrations
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("DataBasePatient.Data.Models.Patient", b =>
-                {
-                    b.HasOne("DataBasePatient.Data.Models.Active", "Active")
-                        .WithMany()
-                        .HasForeignKey("ActiveId");
-
-                    b.HasOne("DataBasePatient.Data.Models.Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Active");
-
-                    b.Navigation("Gender");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patient", "Patient\Patient.csproj", "{068B2051-D7F9-4EB7-9330-8EE8F6462FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientAPI", "Patient\PatientAPI.csproj", "{068B2051-D7F9-4EB7-9330-8EE8F6462FA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBasePatient", "DataBasePatient\DataBasePatient.csproj", "{43D57DD6-6966-44F3-A688-05D8FA4CA64D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBasePatient", "DataBasePatient\DataBasePatient.csproj", "{43D57DD6-6966-44F3-A688-05D8FA4CA64D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

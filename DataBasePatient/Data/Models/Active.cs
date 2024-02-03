@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DataBasePatient.Data.Models
 {
@@ -8,6 +7,6 @@ namespace DataBasePatient.Data.Models
         [Key]
         public int Id { get; set; }
         public bool Value { get; set; }
-        public bool IsActive() => Value;
+        public string? ActiveName { get; set; }    
     }
 }
