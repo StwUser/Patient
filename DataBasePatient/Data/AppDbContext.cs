@@ -12,7 +12,6 @@ namespace DataBasePatient.Data
         public AppDbContext()
         {
             this.SetUpConnectionString();
-            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

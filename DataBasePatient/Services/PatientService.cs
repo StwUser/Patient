@@ -1,4 +1,6 @@
-﻿using DataBasePatient.Data.Interfaces.IServices;
+﻿using DataBasePatient.Data.Dtos;
+using DataBasePatient.Data.Enums;
+using DataBasePatient.Data.Interfaces.IServices;
 using DataBasePatient.Data.Models;
 using DataBasePatient.Repositories;
 
@@ -13,14 +15,45 @@ namespace DataBasePatient.Services
             rp = new PatientRepository();
         }
 
-        public Task<IEnumerable<Patient>> GetPatientsAsync()
+        public async Task<IEnumerable<PatientDto>> GetPatientsAsync()
         {
-            return rp.GetListAsync();
+            var patients = await rp.GetListAsync();
+
+            var result = patients.Select(p => new PatientDto 
+            { 
+                Name = new NameDto 
+                { 
+                    Id = p.Id,
+                    Family = p.Family,
+                    Use = p.Use,
+                    Given = p.Given.ToList()
+                },
+                Active = p.Active?.Value ?? false,
+                BirtDate = p.BirthDate,
+                Gender = p.Gender?.GenderName ?? nameof(GenderId.Unknown)
+            });
+
+            return result;
         }
 
-        public async Task<Patient> GetPatientByIdAsync(Guid id)
+        public async Task<PatientDto> GetPatientByIdAsync(Guid id)
         {
-            var result = await rp.GetByIdAsync(id);
+            var patient = await rp.GetByIdAsync(id);
+
+            var result = new PatientDto
+            {
+                Name = new NameDto
+                {
+                    Id = patient.Id,
+                    Family = patient.Family,
+                    Given = patient.Given.ToList(),
+                    Use = patient.Use
+                },
+                Active = patient.Active?.Value ?? false,
+                BirtDate = patient.BirthDate,
+                Gender = patient?.Gender?.GenderName ?? nameof(GenderId.Unknown)
+            };
+
             return result;
         }
 

@@ -1,4 +1,5 @@
-﻿using DataBasePatient.Data.Interfaces.IServices;
+﻿using DataBasePatient.Data.Dtos;
+using DataBasePatient.Data.Interfaces.IServices;
 using DataBasePatient.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +16,13 @@ namespace PatientAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Patient>> GetPatientsAsync()
+        public async Task<IEnumerable<PatientDto>> GetPatientsAsync()
         {
             return await patientService.GetPatientsAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<Patient> GetUsersByIdAsync(Guid id)
+        public async Task<PatientDto> GetUsersByIdAsync(Guid id)
         {
             return await patientService.GetPatientByIdAsync(id);
         }

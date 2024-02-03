@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBasePatient.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240203113247_AddFields")]
-    partial class AddFields
+    [Migration("20240203120159_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -52,6 +52,16 @@ namespace DataBasePatient.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Patients_Actives_ActiveId",
+                        column: x => x.ActiveId,
+                        principalTable: "Actives",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Patients_Genders_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Genders",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +88,16 @@ namespace DataBasePatient.Migrations
                 table: "Givens",
                 column: "PatientId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_ActiveId",
+                table: "Patients",
+                column: "ActiveId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_GenderId",
+                table: "Patients",
+                column: "GenderId");
+
             migrationBuilder.InsertData(
                table: "Actives",
                columns: new[] { nameof(Active.Id), nameof(Active.Value), nameof(Active.ActiveName) },
@@ -102,16 +122,16 @@ namespace DataBasePatient.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Actives");
-
-            migrationBuilder.DropTable(
-                name: "Genders");
-
-            migrationBuilder.DropTable(
                 name: "Givens");
 
             migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Actives");
+
+            migrationBuilder.DropTable(
+                name: "Genders");
         }
     }
 }

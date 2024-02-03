@@ -2,6 +2,7 @@
 using DataBasePatient.Data;
 using DataBasePatient.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataBasePatient.Repositories
 {
@@ -10,13 +11,22 @@ namespace DataBasePatient.Repositories
         public async Task<IEnumerable<Patient>> GetListAsync()
         {
             using var db = new AppDbContext();
-            return await db.Patients.Include(p => p.Active).Include(p => p.Gender).ToListAsync();
+
+            var result = await db.Patients
+                .Include(p => p.Active)
+                .Include(p => p.Gender)
+                .ToListAsync();
+
+            return result;
         }
 
         public async Task<Patient> GetByIdAsync(Guid id)
         {
             using var db = new AppDbContext();
-            var result = await db.Patients.Include(p => p.Active).Include(p => p.Gender).FirstOrDefaultAsync(u => u.Id == id);
+            var result = await db.Patients
+                .Include(p => p.Active)
+                .Include(p => p.Gender)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (result == null)
             {
