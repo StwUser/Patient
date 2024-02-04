@@ -1,0 +1,31 @@
+version: '3.4'
+networks:
+  patient-deploy:
+    driver: bridge
+services:
+  patientdb:
+    container_name: patient-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=password@12345#
+    networks:
+      - patient-deploy
+  patientapi:
+    container_name: patient-api
+    image: ${DOCKER_REGISTRY-}patientapi
+    build:
+      context: .
+      dockerfile: Patient/Dockerfile
+    ports:
+      - 8001:80
+    depends_on:
+      - patientdb
+    environment:
+      - DB_HOST=patientdb
+      - DB_NAME=PatientDb
+      - DB_SA_PASSWORD=password@12345#
+    networks:
+      - patient-deploy

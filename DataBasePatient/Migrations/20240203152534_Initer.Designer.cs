@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBasePatient.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240203120159_Init")]
-    partial class Init
+    [Migration("20240203152534_Initer")]
+    partial class Initer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace DataBasePatient.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actives");
+                    b.ToTable("Active");
                 });
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Gender", b =>
@@ -56,7 +56,7 @@ namespace DataBasePatient.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genders");
+                    b.ToTable("Gender");
                 });
 
             modelBuilder.Entity("DataBasePatient.Data.Models.Given", b =>
@@ -114,7 +114,7 @@ namespace DataBasePatient.Migrations
             modelBuilder.Entity("DataBasePatient.Data.Models.Given", b =>
                 {
                     b.HasOne("DataBasePatient.Data.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Givens")
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Patient");
@@ -133,6 +133,11 @@ namespace DataBasePatient.Migrations
                     b.Navigation("Active");
 
                     b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("DataBasePatient.Data.Models.Patient", b =>
+                {
+                    b.Navigation("Givens");
                 });
 #pragma warning restore 612, 618
         }

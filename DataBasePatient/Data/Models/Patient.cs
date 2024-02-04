@@ -11,7 +11,7 @@ namespace DataBasePatient.Data.Models
         public string? Use { get; set; }
         [Required]
         public string? Family { get; set; }
-        public ICollection<string> Given { get; } = new List<string>();
+        public ICollection<Given> Givens { get; } = new List<Given>();
         public int? GenderId { get; set; }
         public Gender? Gender { get; set; }
         [Required]

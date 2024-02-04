@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataBasePatient.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Actives",
+                name: "Active",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,11 +22,11 @@ namespace DataBasePatient.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Actives", x => x.Id);
+                    table.PrimaryKey("PK_Active", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genders",
+                name: "Gender",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -35,7 +35,7 @@ namespace DataBasePatient.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genders", x => x.Id);
+                    table.PrimaryKey("PK_Gender", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,14 +53,14 @@ namespace DataBasePatient.Migrations
                 {
                     table.PrimaryKey("PK_Patients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Patients_Actives_ActiveId",
+                        name: "FK_Patients_Active_ActiveId",
                         column: x => x.ActiveId,
-                        principalTable: "Actives",
+                        principalTable: "Active",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Patients_Genders_GenderId",
+                        name: "FK_Patients_Gender_GenderId",
                         column: x => x.GenderId,
-                        principalTable: "Genders",
+                        principalTable: "Gender",
                         principalColumn: "Id");
                 });
 
@@ -97,26 +97,6 @@ namespace DataBasePatient.Migrations
                 name: "IX_Patients_GenderId",
                 table: "Patients",
                 column: "GenderId");
-
-            migrationBuilder.InsertData(
-               table: "Actives",
-               columns: new[] { nameof(Active.Id), nameof(Active.Value), nameof(Active.ActiveName) },
-               values: new object[,]
-               {
-                                { (int)ActiveId.True, true, nameof(ActiveId.True)},
-                                { (int)ActiveId.False, false, nameof(ActiveId.False)}
-               });
-
-            migrationBuilder.InsertData(
-                           table: "Genders",
-                           columns: new[] { nameof(Gender.Id), nameof(Gender.GenderName) },
-                           values: new object[,]
-                           {
-                                { (int)GenderId.Male, nameof(GenderId.Male) },
-                                { (int)GenderId.Female, nameof(GenderId.Female) },
-                                { (int)GenderId.Other, nameof(GenderId.Other) },
-                                { (int)GenderId.Unknown, nameof(GenderId.Unknown) }
-                           });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -128,10 +108,10 @@ namespace DataBasePatient.Migrations
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "Actives");
+                name: "Active");
 
             migrationBuilder.DropTable(
-                name: "Genders");
+                name: "Gender");
         }
     }
 }

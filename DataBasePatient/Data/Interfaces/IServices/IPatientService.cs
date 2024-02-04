@@ -7,8 +7,8 @@ namespace DataBasePatient.Data.Interfaces.IServices
     {
         Task<IEnumerable<PatientDto>> GetPatientsAsync();
         Task<PatientDto> GetPatientByIdAsync(Guid id);
-        Task<Guid> CreatePatientAsync(Patient patient);
-        Task<bool> UpdatePatientAsync(Patient patient);
+        Task<Guid> CreatePatientAsync(PatientDto patient);
+        Task<bool> UpdatePatientAsync(PatientDto patient);
         Task<bool> DeletePatientByIdAsync(Guid id);
     }
 }

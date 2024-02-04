@@ -6,5 +6,6 @@ namespace DatabaseCookingCoolR6.Data.Configurations
         public object? Logging { get; set; }
         public string? AllowedHosts { get; set; }
         public string? ConnectionString { get; set; }
+        public string? DockerConnectionString { get; set; }
     }
 }

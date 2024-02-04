@@ -2,11 +2,10 @@
 using DataBasePatient.Data;
 using DataBasePatient.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DataBasePatient.Repositories
 {
-    public class PatientRepository : IRepositoryCRUD<Patient>
+    public class PatientRepository : IRepositoryCRUD<Patient, Given>
     {
         public async Task<IEnumerable<Patient>> GetListAsync()
         {
@@ -15,6 +14,7 @@ namespace DataBasePatient.Repositories
             var result = await db.Patients
                 .Include(p => p.Active)
                 .Include(p => p.Gender)
+                .Include(p => p.Givens)
                 .ToListAsync();
 
             return result;
@@ -26,6 +26,7 @@ namespace DataBasePatient.Repositories
             var result = await db.Patients
                 .Include(p => p.Active)
                 .Include(p => p.Gender)
+                .Include(p => p.Givens)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             if (result == null)
@@ -36,19 +37,42 @@ namespace DataBasePatient.Repositories
             return result;
         }
 
-        public async Task<Guid> CreateAsync(Patient item)
+        public async Task<Guid> CreateAsync(Patient patient, IEnumerable<Given> givens)
         {
             using var db = new AppDbContext();
-            await db.AddAsync(item);
+            await db.Patients.AddAsync(patient);
             await db.SaveChangesAsync();
 
-            return item.Id;
+            if (givens.Any())
+            {
+                foreach (var g in givens)
+                {
+                    patient.Givens.Add(new Given { PatientId = patient.Id, GivenName = g.GivenName });
+                }
+            }
+
+            await db.SaveChangesAsync();
+
+            return patient.Id;
         }
 
-        public async Task<bool> UpdateAsync(Patient item)
+        public async Task<bool> UpdateAsync(Patient patient, IEnumerable<Given> givens)
         {
             using var db = new AppDbContext();
-            db.Entry(item).State = EntityState.Modified;
+            db.Entry(patient).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            var newPatient = db.Patients.Include(p => p.Givens).FirstOrDefault(p => p.Id == patient.Id);
+
+            if (givens.Any() && newPatient != null)
+            {
+                newPatient?.Givens.Clear();
+                foreach (var g in givens)
+                {
+                    newPatient?.Givens.Add(new Given { PatientId = patient.Id, GivenName = g.GivenName });
+                }
+            }
+
             await db.SaveChangesAsync();
 
             return await Task.FromResult(true);
@@ -57,14 +81,15 @@ namespace DataBasePatient.Repositories
         public async Task<bool> DeleteAsync(Guid id)
         {
             using var db = new AppDbContext();
-            var item = await db.Patients.FirstOrDefaultAsync(u => u.Id == id);
+            var patient = await db.Patients.Include(p => p.Givens).FirstOrDefaultAsync(u => u.Id == id);
 
-            if (item == null)
+            if (patient == null)
             {
                 throw new ArgumentNullException();
             }
 
-            db.Patients.Remove(item);
+            patient.Givens.Clear();
+            db.Patients.Remove(patient);
             await db.SaveChangesAsync();
             return await Task.FromResult(true);
         }

@@ -28,13 +28,13 @@ namespace PatientAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<Guid> CreatePatientAsync(Patient patient)
+        public async Task<Guid> CreatePatientAsync(PatientDto patient)
         {
             return await patientService.CreatePatientAsync(patient);
         }
 
         [HttpPut]
-        public async Task<bool> UpdatePatientAsync(Patient patient)
+        public async Task<bool> UpdatePatientAsync(PatientDto patient)
         {
             return await patientService.UpdatePatientAsync(patient);
         }

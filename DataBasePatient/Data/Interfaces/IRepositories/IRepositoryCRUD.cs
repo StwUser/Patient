@@ -3,7 +3,7 @@
 namespace DatabaseCookingCoolR6.Data.Interfaces.IRepositories
 {
     //Common CRUD
-    public interface IRepositoryCRUD<T>
+    public interface IRepositoryCRUD<T, K>
     {
         //Get List of items
         public Task<IEnumerable<T>> GetListAsync();
@@ -13,11 +13,11 @@ namespace DatabaseCookingCoolR6.Data.Interfaces.IRepositories
 
         //Create item
         //Returns Id of item
-        public Task<Guid> CreateAsync(T item);
+        public Task<Guid> CreateAsync(T item, IEnumerable<K> givens);
 
         //Update item
         //Returns success of operation
-        public Task<bool> UpdateAsync(T item);
+        public Task<bool> UpdateAsync(T item, IEnumerable<K> givens);
 
         //Delete item
         //Returns success of operation

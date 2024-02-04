@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "45bb724d-c37a-4617-93c0-af5642bb0c18",
+		"name": "PatientCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13649366"
+	},
+	"item": [
+		{
+			"name": "GetListPatients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPatientById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/?id=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"description": "Guid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePatientById",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Id",
+						"value": "3fbe373f-9caa-45e9-3c1b-08dc24db0e0c",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/Patient",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePatient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": {\r\n    \"use\": \"official\",\r\n    \"family\": \"Thompson\",\r\n    \"given\": [\r\n      \"Donald\", \"Duck\"\r\n    ]\r\n  },\r\n  \"gender\": \"Male\",\r\n  \"birtDate\": \"2024-02-03T16:09:17.010Z\",\r\n  \"active\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Patient",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePatient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"use\": \"official\",\r\n    \"family\": \"NotThompson\",\r\n    \"given\": [\r\n      \"Donald\", \"NotDuck\"\r\n    ]\r\n  },\r\n  \"gender\": \"Female\",\r\n  \"birtDate\": \"2024-02-03T16:09:17.010Z\",\r\n  \"active\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Patient",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:5001",
+			"type": "string"
+		}
+	]
+}

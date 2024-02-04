@@ -1,4 +1,5 @@
 using DataBasePatient.Data.Interfaces.IServices;
+using DataBasePatient.Helpers;
 using DataBasePatient.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,5 +23,7 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+
+DataSeeder.Seed();
 
 app.Run();
