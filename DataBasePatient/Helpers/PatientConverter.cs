@@ -7,7 +7,7 @@ namespace DataBasePatient.Helpers
 {
     public static class PatientConverter
     {
-        public static IEnumerable<PatientDto> PatientsToPatienDtos(IEnumerable<Patient> patients)
+        public static IEnumerable<PatientDto> PatientsToPatienDtos(IEnumerable<PatientDbo> patients)
         {
             return patients.Select(p => new PatientDto
             {
@@ -24,7 +24,7 @@ namespace DataBasePatient.Helpers
             });
         }
 
-        public static PatientDto PatientToPatientDto(Patient patient)
+        public static PatientDto PatientToPatientDto(PatientDbo patient)
         {
             return new PatientDto
             {
@@ -41,9 +41,9 @@ namespace DataBasePatient.Helpers
             };
         }
 
-        public static (Patient, List<Given>) PatientDtoToPatient(PatientDto patientDto)
+        public static (PatientDbo, List<Given>) PatientDtoToPatient(PatientDto patientDto)
         {
-            var result = new Patient
+            var result = new PatientDbo
             {
                 Use = patientDto?.Name?.Use,
                 Family = patientDto?.Name?.Family,

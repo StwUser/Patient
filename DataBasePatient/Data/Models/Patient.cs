@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataBasePatient.Data.Models
 {
-    public class Patient
+    public class PatientDbo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

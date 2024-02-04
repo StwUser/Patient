@@ -20,7 +20,7 @@ namespace DataBasePatient.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
-        public DbSet<Patient> Patients { get; set; } = null!;
+        public DbSet<PatientDbo> Patients { get; set; } = null!;
         public DbSet<Gender> Gender { get; set; } = null!;
         public DbSet<Given> Givens { get; set; } = null!;
         public DbSet<Active> Active { get; set; } = null!;
@@ -31,7 +31,7 @@ namespace DataBasePatient.Data
             {
                 var dataJson = File.ReadAllText("appsettings.json");
                 var configuration = JsonSerializer.Deserialize<ConfigurationProj>(dataJson);
-                this.connectionString = configuration?.DockerConnectionString ?? throw new ArgumentNullException();
+                this.connectionString = configuration?.ConnectionString ?? throw new ArgumentNullException();//configuration?.DockerConnectionString ?? throw new ArgumentNullException();
             }
             catch (Exception ex)
             {

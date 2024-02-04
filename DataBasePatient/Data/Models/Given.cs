@@ -7,7 +7,7 @@ namespace DataBasePatient.Data.Models
         [Key]
         public int Id { get; set; }
         public Guid? PatientId { get; set; }
-        public Patient? Patient { get; set; }
+        public PatientDbo? Patient { get; set; }
         public string? GivenName { get; set; }
     }
 }

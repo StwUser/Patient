@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBasePatient.Repositories
 {
-    public class PatientRepository : IRepositoryCRUD<Patient, Given>
+    public class PatientRepository : IRepositoryCRUD<PatientDbo, Given>
     {
-        public async Task<IEnumerable<Patient>> GetListAsync()
+        public async Task<IEnumerable<PatientDbo>> GetListAsync()
         {
             using var db = new AppDbContext();
 
@@ -20,7 +20,7 @@ namespace DataBasePatient.Repositories
             return result;
         }
 
-        public async Task<Patient> GetByIdAsync(Guid id)
+        public async Task<PatientDbo> GetByIdAsync(Guid id)
         {
             using var db = new AppDbContext();
             var result = await db.Patients
@@ -37,7 +37,7 @@ namespace DataBasePatient.Repositories
             return result;
         }
 
-        public async Task<Guid> CreateAsync(Patient patient, IEnumerable<Given> givens)
+        public async Task<Guid> CreateAsync(PatientDbo patient, IEnumerable<Given> givens)
         {
             using var db = new AppDbContext();
             await db.Patients.AddAsync(patient);
@@ -56,7 +56,7 @@ namespace DataBasePatient.Repositories
             return patient.Id;
         }
 
-        public async Task<bool> UpdateAsync(Patient patient, IEnumerable<Given> givens)
+        public async Task<bool> UpdateAsync(PatientDbo patient, IEnumerable<Given> givens)
         {
             using var db = new AppDbContext();
             db.Entry(patient).State = EntityState.Modified;
