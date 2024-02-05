@@ -1,5 +1,4 @@
 ﻿using DatabaseCookingCoolR6.Data.Configurations;
-using DataBasePatient.Data.Enums;
 using DataBasePatient.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;

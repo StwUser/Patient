@@ -30,20 +30,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/Patient/?id=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"raw": "{{url}}/api/Patient/ab11554e-9f15-4ea0-ffba-08dc24d2e1e1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"Patient",
-						""
+						"ab11554e-9f15-4ea0-ffba-08dc24d2e1e1"
 					],
 					"query": [
 						{
 							"key": "id",
 							"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-							"description": "Guid"
+							"description": "Guid",
+							"disabled": true
 						}
 					]
 				}
@@ -54,21 +55,204 @@
 			"name": "DeletePatientById",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Id",
-						"value": "3fbe373f-9caa-45e9-3c1b-08dc24db0e0c",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "{{url}}/api/Patient",
+					"raw": "{{url}}/api/Patient/ab11554e-9f15-4ea0-ffba-08dc24d2e1e1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"Patient"
+						"Patient",
+						"ab11554e-9f15-4ea0-ffba-08dc24d2e1e1"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"description": "Guid",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (eq -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/eq2024-02-03",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"eq2024-02-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (ne -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/ne2024-02-03",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"ne2024-02-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (lt -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/lt2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"lt2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (gt -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/gt2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"gt2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (ge -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/ge2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"ge2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (le -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/le2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"le2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (sa -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/sa2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"sa2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (eb -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/eb2013-01-14T10:00",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"eb2013-01-14T10:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchPatientByDate (ap -pref",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Patient/SearchByDate/ap2014-09-20T19:04:00.0000000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Patient",
+						"SearchByDate",
+						"ap2014-09-20T19:04:00.0000000"
 					]
 				}
 			},

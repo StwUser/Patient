@@ -2,6 +2,7 @@
 using DataBasePatient.Data.Interfaces.IServices;
 using DataBasePatient.Helpers;
 using DataBasePatient.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataBasePatient.Services
 {
@@ -41,6 +42,12 @@ namespace DataBasePatient.Services
         public Task<bool> DeletePatientByIdAsync(Guid id)
         {
             return rp.DeleteAsync(id);
+        }
+
+        public async Task<IEnumerable<PatientDto>> SearchPatientsByDateAsync(string date)
+        {
+            var patients = await rp.SearchPatientByDate(date);
+            return PatientConverter.PatientsToPatienDtos(patients);
         }
     }
 }

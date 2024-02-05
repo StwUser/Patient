@@ -44,5 +44,11 @@ namespace PatientAPI.Controllers
         {
             return await patientService.DeletePatientByIdAsync(id);
         }
+
+        [HttpGet("SearchByDate/{date}")]
+        public async Task<IEnumerable<PatientDto>> SearchByDate(string date)
+        {
+            return await patientService.SearchPatientsByDateAsync(date);
+        }
     }
 }

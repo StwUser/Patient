@@ -1,7 +1,9 @@
 ﻿using DatabaseCookingCoolR6.Data.Interfaces.IRepositories;
 using DataBasePatient.Data;
 using DataBasePatient.Data.Models;
+using DataBasePatient.Helpers;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace DataBasePatient.Repositories
 {
@@ -92,6 +94,26 @@ namespace DataBasePatient.Repositories
             db.Patients.Remove(patient);
             await db.SaveChangesAsync();
             return await Task.FromResult(true);
+        }
+
+        public async Task<IEnumerable<PatientDbo>> SearchPatientByDate(string date)
+        {
+            using var db = new AppDbContext();
+            var patientQuery = db.Patients
+                                    .Include(p => p.Active)
+                                    .Include(p => p.Gender)
+                                    .Include(p => p.Givens)
+                                    .AsNoTracking()
+                                    .AsQueryable();
+
+            var result = PatientQueryFilter.SearchPatientByDate(patientQuery, date);
+
+            if (result == null) 
+            {
+                throw new NotImplementedException();
+            }
+
+            return await result.ToArrayAsync();
         }
     }
 }
